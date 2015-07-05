@@ -39,6 +39,9 @@ public class MassCalc : MonoBehaviour {
             case "Mercurio":
                 p = Scale.x * Scale.y * Scale.z * 13f;
                 break;
+            case "Poliestireno":
+                p = Scale.x * Scale.y * Scale.z * 1f;
+                break;
 			default:
 				p = Scale.x*Scale.y*Scale.z*1;
 				break;
