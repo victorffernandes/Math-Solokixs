@@ -4,17 +4,21 @@ using System.Collections.Generic;
 
 public class Main : MonoBehaviour {
 
+    public static int actualGangorra = 0;
     public string actualMaterial;
     public string actualPoligon;
     public int actualQuantity;
     public GameObject actualPuzzle;
     public GameObject[] shapes;
-    public Texture[] textures;
     public float actualHigh;
     public float actualSize;
     public float totalQuantity = 0;
     
-<<<<<<< HEAD
+    public static void ChangeBalance()
+    {
+        actualGangorra++;
+    }
+
 
     /*
     public void InstatiateCostume(GameObject obj, Vector3 vector3, Texture3D texture, string tag)
@@ -23,76 +27,64 @@ public class Main : MonoBehaviour {
         obj.tag = tag;
     }
     */
-    public void SpawnObject()
-    {
-        Vector3 t = actualPuzzle.transform.FindChild("InstantiateSPoint").position;
-        int g = actualQuantity;
 
-=======
+
     public void SpawnObject()
     {
-        Vector3 t = actualPuzzle.transform.FindChild("InstantiateSPoint").position;
-        int g =actualQuantity;
->>>>>>> origin/master
-            for (int i = 0; i < 3; i++)
+        if (actualHigh != 0 && !string.IsNullOrEmpty(actualMaterial) && !string.IsNullOrEmpty(actualPoligon) && actualSize != 0)
+        {
+            Vector3 t = actualPuzzle.transform.FindChild("InstantiateSPoint").position;
+            GameObject obj = new GameObject();
+            #region Select Material
+            if (actualPoligon.Equals("Cubo"))
             {
-                if (actualPoligon.Equals("Cubo"))
+                switch (actualMaterial)
                 {
-<<<<<<< HEAD
-                    GameObject obj;
 
-                    switch(actualMaterial)
-                    {
-
-                        case "Ferro":
-                            obj = shapes[2];
-                            break;
-                        case "Madeira":
-                            obj = shapes[1];
-                            break;
-                        case "Ouro":
-                            obj = shapes[5];
-                            break;
-                        case "Poliestireno":
-                            obj = shapes[4];
-                            break;
-                        case "Chumbo":
-                            obj = shapes[7];
-                            break;
-                        case "Diamante":
-                            obj = shapes[6];
-                            break;
-                        case "Mercurio":
-                            obj = shapes[3];
-                            break;
-                        default:
-                            obj = shapes[0];
-                            break;
-                    }
-                    
-=======
-                    Debug.Log("oioio");
-                    GameObject obj = shapes[0];
->>>>>>> origin/master
-                    obj.SetActive(true);
-                    obj.tag = actualMaterial;
-                    obj.AddComponent<MassCalc>();
-                    obj.GetComponent<Rigidbody>().useGravity = false;
-                    obj.GetComponent<BoxCollider>().enabled = false;
-                    obj.transform.localScale = new Vector3(actualSize, actualHigh, actualSize);
-                    obj.transform.position = new Vector3(t.x, t.y, t.z - (actualSize * i));
-                    Instantiate(obj);
-                    g--;
+                    case "Ferro":
+                        obj = shapes[2];
+                        break;
+                    case "Madeira":
+                        obj = shapes[1];
+                        break;
+                    case "Ouro":
+                        obj = shapes[5];
+                        break;
+                    case "Poliestireno":
+                        obj = shapes[4];
+                        break;
+                    case "Chumbo":
+                        obj = shapes[7];
+                        break;
+                    case "Diamante":
+                        obj = shapes[6];
+                        break;
+                    case "Mercúrio":
+                        obj = shapes[3];
+                        break;
+                    default:
+                        obj = shapes[0];
+                        break;
                 }
-                if (g >= 0) break;
             }
+            #endregion
+            float x = totalQuantity % 2;
+            float y = (totalQuantity - (totalQuantity % 2)) / 2;
+            obj.transform.localScale = new Vector3(actualSize, actualHigh, actualSize);
+            obj.transform.position = new Vector3(t.x, t.y + (2f * y) /*+(actualHigh*(g-1))*/, t.z - (2f * x));
+            GameObject o = (GameObject)Instantiate(obj);
+            o.transform.parent = actualPuzzle.transform;
+            totalQuantity++;
+            Debug.Log(y);
+        }
+     }
+        void Start ()
+        { this.actualMaterial = ""; this.actualPoligon = ""; }
+
+	    void FixedUpdate ()
+        {
+            //Debug.Log(this.actualPoligon);
+	    }
     }
 
-	void Start ()
-    { this.actualMaterial = ""; this.actualPoligon = ""; }
 
-	void FixedUpdate ()
-    {
-        //Debug.Log(this.actualPoligon);
-	}
-}

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class TimeControler : MonoBehaviour {
 
     public int playTime = 0;
+    public GameObject spawPoint;
+
     public int minutes = 0;
     public int seconds = 0;
     public int hours = 0;
@@ -13,15 +15,37 @@ public class TimeControler : MonoBehaviour {
 
 	void Start ()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         this.button = GameObject.Find("ButtonTry");
+        this.spawPoint = GameObject.Find("InstantiateSPoint");
+        StartCoroutine(PlayTimer());
+         
 	}
+    
+    IEnumerator Victory(int sec)
+    {
+        yield return new WaitForSeconds(sec);
+        Main.ChangeBalance();
+        this.playTime = 0;
+        this.seconds = 0;
+       // this.spawPoint.transform.position = new Vector3(94.3f, 1.2f, -1.83f);
+    }
+
 
     public void BeginTime()
     {
-       StartCoroutine(PlayTimer());
-       if (this.name.Equals("Time"))
-       { this.button.SetActive(false); }
+        StartCoroutine(Victory(5));
+        Rigidbody[] r = GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().actualPuzzle.GetComponentsInChildren<Rigidbody>();
+        foreach(Rigidbody childR in r)
+        {
+            childR.useGravity = true;
+            childR.isKinematic = false;
+        }
+
+
+
+       //if (this.name.Equals("Time"))
+      // { /*this.button.SetActive(false);*/ }
        Time.timeScale = 1;
     }
 
@@ -43,9 +67,9 @@ public class TimeControler : MonoBehaviour {
         if (this.name.Equals("Time"))
         { this.GetComponent<Text>().text = seconds.ToString() + "/" + 60; }
 
-        if(this.seconds > 59)
-        { Debug.Log("perdeu"); }
+        if(this.seconds > 58)
+        { Application.LoadLevel("Menu"); }
 
-        Debug.Log("Segundos: " + seconds.ToString() + "  " + "Minutos" + minutes.ToString());
+       // Debug.Log("Segundos: " + seconds.ToString() + "  " + "Minutos" + minutes.ToString());
 	}
 }

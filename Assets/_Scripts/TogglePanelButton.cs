@@ -22,9 +22,17 @@ public class TogglePanelButton : MonoBehaviour {
     }
 
     public void ChangeQuantity()
-    { 
-        main.actualQuantity = Mathf.RoundToInt(GetComponent<Scrollbar>().value*10);
-        GetComponentInChildren<Text>().text = "Quantos? "+Mathf.RoundToInt(GetComponent<Scrollbar>().value * 10).ToString();
+    {
+        if (Mathf.RoundToInt(GetComponent<Scrollbar>().value * 10) <= 6)
+        {
+            main.actualQuantity = Mathf.RoundToInt(GetComponent<Scrollbar>().value * 10) ;
+            GetComponentInChildren<Text>().text = "Quantos? " + main.actualQuantity.ToString();
+        }
+        else
+        {
+            main.actualQuantity = 6;
+            GetComponentInChildren<Text>().text = "Quantos? " + main.actualQuantity.ToString();
+        }
     }
 
     //função que modificara a string "actualCube", para que ela seja igual ao material clicado

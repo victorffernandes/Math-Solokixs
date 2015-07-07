@@ -3,12 +3,14 @@ using System.Collections;
 
 public class MassCalc : MonoBehaviour {
 
-	void Awake () 
+	void Start () 
     {
-		if(name.Equals("Cube"))
+        Debug.Log("dadsa");
+        Main m = GameObject.FindGameObjectWithTag("Main").GetComponent<Main>();
+		if(m.actualPoligon.Equals("Cubo"))
 		{ rigidbody.mass = CubeMass(transform.localScale,gameObject.tag); }
 
-		else if(name.Equals("Cylinder"))
+        else if (m.actualPoligon.Equals("Cilindro"))
 		{ rigidbody.mass = CylinderMass(transform.localScale, gameObject.tag); }
 	}
 
@@ -55,6 +57,9 @@ public class MassCalc : MonoBehaviour {
         float p;
 		switch (material) 
 		{
+            case "Madeira":
+                p = (Mathf.PI * Scale.x * Scale.y * Scale.z) * 1.25f;
+                break;
 			case "Ferro":
 				p = (Mathf.PI*Scale.x*Scale.y*Scale.z)*7.5f;
 				break;
