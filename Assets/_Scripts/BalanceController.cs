@@ -8,17 +8,19 @@ public class BalanceController : MonoBehaviour {
 	
 	}
 	
-    IEnumerator ChangeScene(int sec)
+    void ChangeScene()
     {
-        yield return new WaitForSeconds(sec);
-        Application.LoadLevel("Menu");
+        GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().chances--;
+        if (GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().chances < 1)
+        { Application.LoadLevel("Menu"); }
     }
 
     void OnCollisionEnter(Collision col)
     {
         if(col.gameObject.tag.Equals("Ground"))
         {
-            StartCoroutine(ChangeScene(3));
+            ChangeScene();
+            GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().ReInitializeBalance();
         }
     }
 

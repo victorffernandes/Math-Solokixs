@@ -13,10 +13,28 @@ public class Main : MonoBehaviour {
     public float actualHigh;
     public float actualSize;
     public float totalQuantity = 0;
-    
+    public static bool deleteMode = false;
+
+    public GameObject[] Lifes = new GameObject[3];
+    public int chances;
+
     public static void ChangeBalance()
     {
         actualGangorra++;
+    }
+
+    public void ReInitializeBalance()
+    {
+        Debug.Log("pirocaespacial");
+
+        CubeController[] c = actualPuzzle.transform.GetComponentsInChildren<CubeController>();
+
+        foreach (CubeController cube in c)
+        {
+            cube.transform.localPosition = cube.StartPosition;
+            cube.GetComponent<Rigidbody>().useGravity = false;
+        }
+        //actualPuzzle.GetComponent<BalanceController>().gameObject.transform.rotation = Quaternion.identity;
     }
 
 
@@ -79,11 +97,11 @@ public class Main : MonoBehaviour {
         }
      }
         void Start ()
-        { this.actualMaterial = ""; this.actualPoligon = ""; }
+    { this.actualMaterial = ""; this.actualPoligon = ""; this.chances = 3;  }
 
 	    void FixedUpdate ()
         {
-            //Debug.Log(this.actualPoligon);
+            
 	    }
     }
 

@@ -3,18 +3,23 @@ using System.Collections;
 
 public class CubeController : MonoBehaviour {
 
-	void Start () 
-    {
-	
-	}
+    public Vector3 StartPosition;
+    public bool isPlayable = false;
+    
+
+
+	void Start ()
+    { StartPosition = transform.localPosition;  }
 
     void OnMouseDown()
     {
-        this.rigidbody.isKinematic = true;
-
-        this.transform.position = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        if (isPlayable && Main.deleteMode)
+        {
+            //GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().totalQuantity--;
+            Destroy(gameObject);
+        }
     }
-	
+
 	void FixedUpdate () 
     {
 	    

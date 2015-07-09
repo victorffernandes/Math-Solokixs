@@ -37,12 +37,12 @@ public class Round : MonoBehaviour
 		if (Input.GetAxis ("Mouse ScrollWheel") > 0 ) 
 		{
 			//Camera.main.fieldOfView += -m;
-            Camera.main.transform.Translate(0, 0, 10 * Time.deltaTime);
+            Camera.main.transform.Translate(0, 0, 100 * Time.deltaTime);
 		}
         if (Input.GetAxis("Mouse ScrollWheel") < 0 ) 
 		{
 			//Camera.main.fieldOfView += m;
-            Camera.main.transform.Translate(0, 0, -10 * Time.deltaTime);
+            Camera.main.transform.Translate(0, 0, -100 * Time.deltaTime);
 		}
 		if (Input.GetAxis ("Mouse Y") > 0 && Input.GetMouseButton (1)  && q.x >= 1) 
 		{
