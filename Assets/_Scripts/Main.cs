@@ -11,15 +11,36 @@ public class Main : MonoBehaviour {
     public GameObject actualPuzzle;
     public GameObject[] shapes;
     public float actualHigh;
-    public float actualSize;
+    //public float actualSize = 1;
     public float totalQuantity = 0;
     public static bool deleteMode = false;
+
+    public List<GameObject> buttons = new List<GameObject>();
 
     public GameObject[] Lifes = new GameObject[3];
     public int chances;
 
-    public static void ChangeBalance()
+    public List<Vector3> deletedPos = new List<Vector3>();
+
+    public void ChangeBalance()
     {
+        for(int i = 0;i< buttons.Count;i++)
+        {
+            buttons[i].SetActive(true);
+        }
+        if(actualGangorra.Equals(1))
+        {
+            buttons[3].SetActive(false);
+        }
+        else if (actualGangorra.Equals(2))
+        {
+
+        }
+
+
+
+        GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().totalQuantity = 0;
+        GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().deletedPos.Clear();
         actualGangorra++;
     }
 
@@ -53,11 +74,11 @@ public class Main : MonoBehaviour {
 
     public void SpawnObject()
     {
-        if (actualHigh != 0 && !string.IsNullOrEmpty(actualMaterial) && !string.IsNullOrEmpty(actualPoligon) && actualSize != 0)
+        if (actualHigh != 0 && !string.IsNullOrEmpty(actualMaterial) && !string.IsNullOrEmpty(actualPoligon))
         {
-            Vector3 t = actualPuzzle.transform.FindChild("InstantiateSPoint").position;
+            Vector3 t = GameObject.FindGameObjectWithTag("Round").GetComponent<Round>().orbitalTarget.transform.FindChild("InstantiateSPoint").position;
             GameObject obj = new GameObject();
-            #region Select Material
+            #region Select Material Cubo
             if (actualPoligon.Equals("Cubo"))
             {
                 switch (actualMaterial)
@@ -90,18 +111,76 @@ public class Main : MonoBehaviour {
                 }
             }
             #endregion
+
+            #region Select Material Cilindro
+
+            if (actualPoligon.Equals("Cilindro"))
+            {
+                Debug.Log("é cilindro");
+
+                switch (actualMaterial)
+                {
+                    case "Ferro":
+                        obj = shapes[10];
+                        break;
+                    case "Madeira":
+                        obj = shapes[9];
+                        break;
+                    case "Ouro":
+                        obj = shapes[13];
+                        break;
+                    case "Poliestireno":
+                        obj = shapes[12];
+                        break;
+                    case "Chumbo":
+                        obj = shapes[15];
+                        break;
+                    case "Diamante":
+                        obj = shapes[14];
+                        break;
+                    case "Mercúrio":
+                        obj = shapes[11];
+                        break;
+                    default:
+                        obj = shapes[8];
+                        break;
+                }
+            }
+
+            #endregion
+
+
             float x = totalQuantity % 2;
             float y = (totalQuantity - (totalQuantity % 2)) / 2;
-            obj.transform.localScale = new Vector3(actualSize, actualHigh, actualSize);
-            obj.transform.position = new Vector3(t.x, t.y + (2f * y) /*+(actualHigh*(g-1))*/, t.z - (2f * x));
+            if (actualPoligon.Equals("Cilindro"))
+            {
+                obj.transform.localScale = new Vector3(0.5f, actualHigh, 0.5f);
+            }
+            else
+            {
+                obj.transform.localScale = new Vector3(actualHigh, actualHigh, actualHigh);
+            }
+            if (deletedPos.Count == 0)
+            {
+                obj.transform.position = new Vector3(t.x, t.y + (2f * y) /*+(actualHigh*(g-1))*/, t.z - (2f * x));
+            }
+
+            else
+            {
+                obj.transform.position = deletedPos[0];
+                deletedPos.RemoveAt(0);
+            }
             GameObject o = (GameObject)Instantiate(obj);
             o.transform.parent = actualPuzzle.transform;
             totalQuantity++;
-            Debug.Log(y);
         }
      }
         void Start ()
-        { this.actualMaterial = ""; this.actualPoligon = ""; this.chances = 3;  }
+        { 
+            this.actualMaterial = ""; this.actualPoligon = ""; this.chances = 3; 
+            
+        
+        }
 
 	    void FixedUpdate ()
         {

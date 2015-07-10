@@ -5,12 +5,10 @@ public class MassCalc : MonoBehaviour {
 
 	void Start () 
     {
-        Debug.Log("dadsa");
-        Main m = GameObject.FindGameObjectWithTag("Main").GetComponent<Main>();
-		if(m.actualPoligon.Equals("Cubo"))
+		if(gameObject.layer.Equals(8))
 		{ rigidbody.mass = CubeMass(transform.localScale,gameObject.tag); }
 
-        else if (m.actualPoligon.Equals("Cilindro"))
+        else if (gameObject.layer.Equals(9))
 		{ rigidbody.mass = CylinderMass(transform.localScale, gameObject.tag); }
 	}
 

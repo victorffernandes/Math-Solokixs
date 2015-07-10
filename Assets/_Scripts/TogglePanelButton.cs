@@ -16,11 +16,6 @@ public class TogglePanelButton : MonoBehaviour {
         main.actualHigh = float.Parse(dimension);
     }
 
-    public void ChangeSize(string dimension)
-    {
-        main.actualSize = float.Parse(dimension);
-    }
-
     public void ChangeQuantity()
     {
         if (Mathf.RoundToInt(GetComponent<Scrollbar>().value * 10) <= 6)

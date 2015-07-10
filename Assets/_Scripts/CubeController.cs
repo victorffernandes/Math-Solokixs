@@ -19,6 +19,7 @@ public class CubeController : MonoBehaviour {
         if (isPlayable && Main.deleteMode)
         {
             //GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().totalQuantity--;
+            GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().deletedPos.Add(transform.position);
             Destroy(gameObject);
         }
     }

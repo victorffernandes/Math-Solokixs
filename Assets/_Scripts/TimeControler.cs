@@ -26,8 +26,8 @@ public class TimeControler : MonoBehaviour {
     {
 		int b = GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().chances;
         yield return new WaitForSeconds(sec);
-		if (b == GameObject.FindGameObjectWithTag ("Main").GetComponent<Main> ().chances) 
-		{Main.ChangeBalance ();}
+		if (b == GameObject.FindGameObjectWithTag ("Main").GetComponent<Main> ().chances)
+        { GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().ChangeBalance(); }
         this.playTime = 0;
         this.seconds = 0;
        // this.spawPoint.transform.position = new Vector3(94.3f, 1.2f, -1.83f);
@@ -37,7 +37,7 @@ public class TimeControler : MonoBehaviour {
     public void BeginTime()
     {
         StartCoroutine(Victory(5));
-        Rigidbody[] r = GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().actualPuzzle.GetComponentsInChildren<Rigidbody>();
+        Rigidbody[] r = GameObject.FindGameObjectWithTag("Round").GetComponent<Round>().orbitalTarget.GetComponentsInChildren<Rigidbody>();
         foreach(Rigidbody childR in r)
         {
             childR.useGravity = true;
@@ -70,7 +70,7 @@ public class TimeControler : MonoBehaviour {
         { this.GetComponent<Text>().text = seconds.ToString() + "/" + 60; }
 
         if(this.seconds > 58)
-        { Application.LoadLevel("Menu"); }
+        { GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().chances--; }
 
        // Debug.Log("Segundos: " + seconds.ToString() + "  " + "Minutos" + minutes.ToString());
 	}
