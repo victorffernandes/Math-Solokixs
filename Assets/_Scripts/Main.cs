@@ -101,7 +101,7 @@ public class Main : MonoBehaviour {
         }
      }
         void Start ()
-    { this.actualMaterial = ""; this.actualPoligon = ""; this.chances = 3;  }
+        { this.actualMaterial = ""; this.actualPoligon = ""; this.chances = 3;  }
 
 	    void FixedUpdate ()
         {
