@@ -25,16 +25,20 @@ public class Main : MonoBehaviour {
 
     public void ReInitializeBalance()
     {
-        Debug.Log("pirocaespacial");
-
         CubeController[] c = actualPuzzle.transform.GetComponentsInChildren<CubeController>();
-
         foreach (CubeController cube in c)
         {
-            cube.transform.localPosition = cube.StartPosition;
+			cube.ReturnStartPos();
+			cube.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			cube.transform.rotation = Quaternion.identity;
+			cube.GetComponent<Rigidbody>().maxAngularVelocity = 0;
             cube.GetComponent<Rigidbody>().useGravity = false;
         }
-        //actualPuzzle.GetComponent<BalanceController>().gameObject.transform.rotation = Quaternion.identity;
+		BalanceController b = actualPuzzle.GetComponentInChildren<BalanceController> ();
+		b.gameObject.transform.localRotation = Quaternion.identity;
+		b.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+		b.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
+
     }
 
 

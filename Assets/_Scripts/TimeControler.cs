@@ -24,8 +24,10 @@ public class TimeControler : MonoBehaviour {
     
     IEnumerator Victory(int sec)
     {
+		int b = GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().chances;
         yield return new WaitForSeconds(sec);
-        Main.ChangeBalance();
+		if (b == GameObject.FindGameObjectWithTag ("Main").GetComponent<Main> ().chances) 
+		{Main.ChangeBalance ();}
         this.playTime = 0;
         this.seconds = 0;
        // this.spawPoint.transform.position = new Vector3(94.3f, 1.2f, -1.83f);

@@ -6,7 +6,10 @@ public class CubeController : MonoBehaviour {
     public Vector3 StartPosition;
     public bool isPlayable = false;
     
-
+	public void ReturnStartPos()
+	{
+		transform.localPosition = StartPosition;
+	}
 
 	void Start ()
     { StartPosition = transform.localPosition;  }

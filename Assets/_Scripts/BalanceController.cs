@@ -19,8 +19,9 @@ public class BalanceController : MonoBehaviour {
     {
         if(col.gameObject.tag.Equals("Ground"))
         {
+			Debug.Log("ground");
+			GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().ReInitializeBalance();
             ChangeScene();
-            GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().ReInitializeBalance();
         }
     }
 
