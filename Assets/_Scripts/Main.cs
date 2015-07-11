@@ -22,23 +22,17 @@ public class Main : MonoBehaviour {
 
     public List<Vector3> deletedPos = new List<Vector3>();
 
+    public void BlockButton()
+    {
+        if (actualGangorra.Equals(0))
+        { buttons[0].SetActive(false); }
+
+        if (actualGangorra.Equals(1))
+        { buttons[3].SetActive(false); buttons[0].SetActive(true); }
+    }
+
     public void ChangeBalance()
     {
-        for(int i = 0;i< buttons.Count;i++)
-        {
-            buttons[i].SetActive(true);
-        }
-        if(actualGangorra.Equals(1))
-        {
-            buttons[3].SetActive(false);
-        }
-        else if (actualGangorra.Equals(2))
-        {
-
-        }
-
-
-
         GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().totalQuantity = 0;
         GameObject.FindGameObjectWithTag("Main").GetComponent<Main>().deletedPos.Clear();
         actualGangorra++;
@@ -184,7 +178,7 @@ public class Main : MonoBehaviour {
 
 	    void FixedUpdate ()
         {
-            
+            BlockButton();
 	    }
     }
 
